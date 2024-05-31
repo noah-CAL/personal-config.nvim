@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -133,7 +133,7 @@ vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 200
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -565,10 +565,10 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        clangd = {},
+        rust_analyzer = {},
+        markdown_oxide = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -625,7 +625,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Autoformat
+  --[[{ -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
     keys = {
@@ -660,7 +660,7 @@ require('lazy').setup({
         -- javascript = { { "prettierd", "prettier" } },
       },
     },
-  },
+  }, ]]
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -773,18 +773,60 @@ require('lazy').setup({
     end,
   },
 
+  --[[ COLOR SCHEMES ]]--
+  {
+    'scottmckendry/cyberdream.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    opts = {
+      transparent = true,
+      enable_italics = false,
+      terminal_colors = true,
+      theme = {
+        variant = "default",
+        colors = {  -- color overides
+          bg = "#2f3436",
+        },
+      },
+    },
+  },
+
+  {
+    'yazeed1s/minimal.nvim',
+    priority = 1000,
+    init = function()
+      vim.g.minimal_italic_comments = false
+      vim.g.minimal_italic_keywords = false
+      vim.g.minimal_italic_booleans = false
+      vim.g.minimal_italic_functions = false
+      vim.g.minimal_italic_comments = false
+      vim.g.minimal_transparent_background = true
+    end
+  },
+
+  {
+    'edeneast/nightfox.nvim',
+    priority = 1000,
+    opts = {
+      options = {
+        transparent = true,
+      },
+    },
+  },
+
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    opts = {
+      transparent = true,
+    },
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'nightfox'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
