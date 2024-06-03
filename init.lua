@@ -573,7 +573,14 @@ require('lazy').setup({
         markdown_oxide = {},
         pyright = {},  -- needs NPM installed
         rust_analyzer = {},
+
+        -- Vue + Typescript
+        html = {},
+        cssls = {},
+        css_variables = {},
         tsserver = {},
+        volar = {},
+
 
         
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
